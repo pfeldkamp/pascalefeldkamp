@@ -71,3 +71,32 @@ img.rounded-corners {
     line-height: 50vw; /* Center the text vertically */
     position: relative;
 }
+
+
+/* EXTRA STUFF FOR SMALL SCREENS */
+
+@media only screen and (max-width: 768px) {
+    /* Your mobile-specific styles here */
+    body {
+        margin: 2%;
+        font-size: smaller;
+        /* Adjust other properties */
+    }
+
+    #container {
+        width: 90%;
+        padding: 2%;
+        margin: 2%;
+    }
+
+    #sidebar {
+        width: 100%;
+        float: none;
+        /* Adjust other properties */
+    }
+
+    #content {
+        margin-left: 0;
+        /* Adjust other properties */
+    }
+}
