@@ -40,14 +40,14 @@ img.rounded-corners {
 
 /* Custom containers */
 #container {
-    width: 75vw;
+    width: 75%;
     padding: 5%;
     margin: 5%;
 }
 
 #sidebar {
     float: right;
-    width: 30vw;
+    width: 30%;
     background: #F5F5F5;
     padding: 5%;
     margin: 5%;
@@ -57,7 +57,7 @@ img.rounded-corners {
 #content {
     overflow: hidden;
     margin: 5%;
-    margin-left: 15%;
+    margin-left: 10%;
     padding: 5%;
 }
 
