@@ -49,14 +49,12 @@ img.rounded-corners {
     float: right;
     width: 35%;
     background: #F5F5F5;
-    padding: 5%;
     margin: 5%;
     clear: right;
 }
 
 #content {
     overflow: hidden;
-    padding: 5%;
     margin: 5%;
     margin-left: 10%;
 }
