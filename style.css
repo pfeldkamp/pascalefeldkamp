@@ -50,7 +50,7 @@ img.rounded-corners {
     width: 29%;
     background: #F5F5F5;
     padding: 5%;
-    margin: 5%;
+    margin: 3%;
     clear: right;
 }
 
@@ -58,7 +58,7 @@ img.rounded-corners {
     overflow: hidden;
     margin: 5%;
     margin-left: 10%;
-    padding: 5%;
+    padding: 3%;
 }
 
 .curve {
