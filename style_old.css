@@ -5,13 +5,13 @@ body {
     width: 90%;
     font-family: 'Times New Roman', Times, serif;
     font-size: small;
-}
+ }
 
 #content h2 {
     margin-bottom: 10px; /* adjusting margin after h2 */
 }
 
-/* Links */
+ /* Links */
 a {
     color: #0366d6;
     text-decoration: none;
@@ -29,12 +29,14 @@ a:hover {
 a.black-link {
     color: black;
     text-decoration: none; /* removes the underline by default */
-}
+  }
 
 /* Images */
 img.rounded-corners {
+    /*border-radius: 0 50% 50% 50%;*/
     border-radius: 50%;
-}
+  }
+
 
 /* Custom containers */
 #container {
@@ -63,14 +65,16 @@ img.rounded-corners {
     width: 60%; /* Adjust the width as needed */
     height: 50vw; /* 50% of the viewport height; adjust as needed */
     background-color: transparent;
-    border-radius: 50% 0 0 0 / 50% 0 0 0;
+    border-radius:  50% 0 0 0 / 50% 0 0 0;
     border: 2px solid #000;
     text-align: center;
     line-height: 50vw; /* Center the text vertically */
     position: relative;
 }
 
+
 /* EXTRA STUFF FOR SMALL SCREENS */
+
 @media only screen and (max-width: 768px) {
     /* Your mobile-specific styles here */
     body {
