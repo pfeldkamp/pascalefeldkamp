@@ -10,25 +10,15 @@
     <style>
         .iframe-container {
             width: 100%;
+            height: 800px; /* Adjust height as needed */
             border: 1px solid black;
-            overflow: hidden;
         }
         .iframe-container iframe {
             width: 100%;
+            height: 100%;
             border: none;
         }
     </style>
-    <script>
-        function resizeIframe(iframe) {
-            iframe.style.height = iframe.contentWindow.document.body.scrollHeight + 'px';
-        }
-        window.addEventListener('load', function() {
-            var iframe = document.getElementById('content-iframe');
-            iframe.onload = function() {
-                resizeIframe(iframe);
-            };
-        });
-    </script>
 </head>
 <body>
     <div class="section features-0">
@@ -36,7 +26,7 @@
             <h3 class="display-3 text-center">Showing stuff</h3>
             <p class="lead text-center">Explore the overlap of concreteness and visuality from the Lancaster sensori norms</p>
             <div class="iframe-container">
-                <iframe id="content-iframe" src="concreteness_visual_SM.html"></iframe>
+                <iframe src="concreteness_visual_SM.html"></iframe>
             </div>
         </div>
     </div>
