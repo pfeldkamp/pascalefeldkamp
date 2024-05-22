@@ -1,15 +1,28 @@
 body {
     color: black;
-    margin: 5%;
-    margin-top: 5%;
-    width: 90%;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
     font-family: 'Times New Roman', Times, serif;
     font-size: small;
 }
 
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+
 #content h2 {
     margin-bottom: 10px; /* adjusting margin after h2 */
 }
+
+.container {
+    width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+}
+
 
 /* Links */
 a {
