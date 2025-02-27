@@ -97,3 +97,35 @@ img.rounded-corners {
         /* Adjust other properties */
     }
 }
+
+
+
+button {
+    color: #ff00ff; /* Neon Pink Text */
+    border: 2px solid #00ff00; /* Neon Green Border */
+    background-color: white;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    position: relative;
+}
+
+/* Tooltip styling */
+button::after {
+    content: "copy"; /* Hover text */
+    color: #00ff00; /* Neon Green */
+    background-color: black;
+    padding: 5px;
+    font-size: 12px;
+    position: absolute;
+    top: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    visibility: hidden;
+    border-radius: 3px;
+}
+
+/* Show tooltip on hover */
+button:hover::after {
+    visibility: visible;
+}
