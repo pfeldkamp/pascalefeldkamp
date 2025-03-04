@@ -133,6 +133,6 @@ button:hover::after {
 
 /* Change text when button is clicked */
 button:active::after {
-    content: "copied!";
+    content: "!!!";
     visibility: visible;
 }
