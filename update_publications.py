@@ -29,7 +29,6 @@ def safe_year(summary):
     y = get(summary, "publication-date", "year", "value")
     return str(y) if y else "Unknown"
 
-
 def safe_title(summary):
     return get(summary, "title", "title", "value") or "Untitled"
 
@@ -121,6 +120,23 @@ def build_html(publications):
         for pub in years[year]:
             title = pub["title"]
 
+            # add emoji
+            if pub["type"].lower() == "conference paper":
+                use_emoji = "📄 "
+            elif pub["type"].lower() == "conference output":
+                use_emoji = "📄 "
+                pub["type"] = "Conference Paper"
+            elif pub["type"].lower() == "journal article":
+                use_emoji = "📘 "
+            elif pub["type"].lower() == "book chapter":
+                use_emoji = "📖 "
+                if pub["journal_title"].lower() == "anthology of computers and the humanities":
+                    pub["type"] = "Conference Paper"
+            elif pub["type"].lower() == "book":
+                use_emoji = "📚 "
+            else:
+                use_emoji = "📝 "
+
             if pub["url"]:
                 title_html = f'<a href="{pub["url"]}">"{title}"</a>'
                 link = f'<a href="{pub["url"]}">{pub["type"]}</a>'
@@ -133,7 +149,7 @@ def build_html(publications):
             html.append(f"""
 <div class="row">
     <div class="col-md-10 mx-auto">
-        <h6>{title_html}</h6>
+        <h6> {use_emoji}{title_html}</h6>
         <p class="description opacity-8">
             {year}. {link}
         </p>
