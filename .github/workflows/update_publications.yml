@@ -1,7 +1,21 @@
-- uses: actions/setup-python@v5
-  with:
-    python-version: "3.12"
+name: Update Publications from ORCID
 
-- run: pip install requests
+on:
+  schedule:
+    - cron: "0 0 * * 1" # every Monday at midnight
+  workflow_dispatch:
 
-- run: python update_publications.py
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - run: pip install requests
+
+      - run: python update_publications.py
