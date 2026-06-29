@@ -7,60 +7,84 @@ HTML_FILE = "publications.html"
 
 API = f"https://pub.orcid.org/v3.0/{ORCID}/works"
 
-headers = {
-    "Accept": "application/json"
+HEADERS = {
+    "Accept": "application/vnd.orcid+json"
 }
 
 
+# --- safe navigation helpers ---
+
+def get(d, *keys, default=None):
+    """Traverse nested dicts safely."""
+    for k in keys:
+        if not isinstance(d, dict):
+            return default
+        d = d.get(k)
+        if d is None:
+            return default
+    return d
+
+
+def safe_year(summary):
+    y = get(summary, "publication-date", "year", "value")
+    return str(y) if y else "Unknown"
+
+
+def safe_title(summary):
+    return get(summary, "title", "title", "value") or "Untitled"
+
+
+def safe_url(summary):
+    url = get(summary, "url", "value")
+    if url:
+        return url
+
+    ext_ids = get(summary, "external-ids", "external-id", default=[])
+    if isinstance(ext_ids, list):
+        for ext in ext_ids:
+            if ext.get("external-id-type") == "doi":
+                doi = ext.get("external-id-value")
+                if doi:
+                    return f"https://doi.org/{doi}"
+
+    return ""
+
+
+def safe_type(summary):
+    return (summary.get("type") or "").replace("-", " ").title()
+
+
+# --- fetching ---
+
 def fetch_publications():
-    r = requests.get(API, headers=headers)
+    r = requests.get(API, headers=HEADERS, timeout=30)
     r.raise_for_status()
 
-    works = r.json()["group"]
+    data = r.json()
+    groups = data.get("group", [])
 
     pubs = []
 
-    for group in works:
-        summary = group["work-summary"][0]
+    for group in groups:
+        summaries = group.get("work-summary", [])
+        if not summaries:
+            continue
 
-        title = ""
-        if summary.get("title"):
-            title = summary["title"]["title"]["value"]
-
-        year = "Unknown"
-        if summary.get("publication-date"):
-            y = summary["publication-date"].get("year")
-            if y:
-                year = y["value"]
-
-        url = ""
-
-        if summary.get("url"):
-            url = summary["url"]["value"]
-
-        if not url:
-            for ext in summary.get("external-ids", {}).get("external-id", []):
-                if ext.get("external-id-type") == "doi":
-                    doi = ext["external-id-value"]
-                    url = f"https://doi.org/{doi}"
-                    break
-
-        pub_type = summary.get("type", "").replace("-", " ").title()
+        s = summaries[0]
 
         pubs.append({
-            "title": title,
-            "year": year,
-            "url": url,
-            "type": pub_type
+            "title": safe_title(s),
+            "year": safe_year(s),
+            "url": safe_url(s),
+            "type": safe_type(s),
         })
-
-    pubs.sort(key=lambda x: x["year"], reverse=True)
 
     return pubs
 
 
-def build_html(publications):
+# --- rendering ---
 
+def build_html(publications):
     years = defaultdict(list)
 
     for pub in publications:
@@ -77,7 +101,6 @@ def build_html(publications):
 """)
 
         for pub in years[year]:
-
             title = pub["title"]
 
             if pub["url"]:
@@ -101,16 +124,13 @@ def build_html(publications):
     return "\n".join(html)
 
 
-def main():
+# --- file update ---
 
-    pubs = fetch_publications()
-
-    new_html = build_html(pubs)
-
+def update_page(new_html):
     with open(HTML_FILE, encoding="utf8") as f:
         page = f.read()
 
-    page = re.sub(
+    updated = re.sub(
         r"<!-- START PUBLICATIONS -->.*<!-- END PUBLICATIONS -->",
         f"<!-- START PUBLICATIONS -->\n{new_html}\n<!-- END PUBLICATIONS -->",
         page,
@@ -118,7 +138,18 @@ def main():
     )
 
     with open(HTML_FILE, "w", encoding="utf8") as f:
-        f.write(page)
+        f.write(updated)
+
+
+def main():
+    pubs = fetch_publications()
+
+    if not pubs:
+        print("No publications found.")
+        return
+
+    html = build_html(pubs)
+    update_page(html)
 
     print(f"Updated {len(pubs)} publications.")
 
