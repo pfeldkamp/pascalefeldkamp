@@ -127,11 +127,12 @@ def build_html(publications):
                 use_emoji = "📄 "
                 pub["type"] = "Conference Paper"
             elif pub["type"].lower() == "journal article":
-                use_emoji = "📘 "
+                use_emoji = "🗞️ "
             elif pub["type"].lower() == "book chapter":
                 use_emoji = "📖 "
                 if pub["journal_title"].lower() == "anthology of computers and the humanities":
                     pub["type"] = "Conference Paper"
+                    use_emoji = "📄 "
             elif pub["type"].lower() == "book":
                 use_emoji = "📚 "
             else:
