@@ -129,6 +129,8 @@ def build_html(publications):
 def update_page(new_html):
     with open(HTML_FILE, encoding="utf8") as f:
         page = f.read()
+    print("START marker present:", "<!-- START PUBLICATIONS -->" in page)
+    print("END marker present:", "<!-- END PUBLICATIONS -->" in page)
 
     updated = re.sub(
         r"<!-- START PUBLICATIONS -->.*<!-- END PUBLICATIONS -->",
