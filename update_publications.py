@@ -53,6 +53,8 @@ def safe_url(summary):
 def safe_type(summary):
     return (summary.get("type") or "").replace("-", " ").title()
 
+def safe_journal_title(summary):
+    return get(summary, "journal-title", "value") or ""
 
 # --- fetching ---
 
@@ -77,6 +79,7 @@ def fetch_publications():
             "year": safe_year(s),
             "url": safe_url(s),
             "type": safe_type(s),
+            "journal_title": safe_journal_title(s),
         })
 
     return pubs
@@ -89,6 +92,7 @@ def build_html(publications):
 
     for pub in publications:
         years[pub["year"]].append(pub)
+
 
     html = []
 
@@ -109,6 +113,8 @@ def build_html(publications):
             else:
                 title_html = title
                 link = pub["type"]
+            if pub["journal_title"]:
+                link += f', <em>{pub["journal_title"]}</em>'
 
             html.append(f"""
 <div class="row">
