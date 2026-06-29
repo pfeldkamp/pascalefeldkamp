@@ -33,20 +33,32 @@ def safe_year(summary):
 def safe_title(summary):
     return get(summary, "title", "title", "value") or "Untitled"
 
+def normalize_doi(doi):
+    doi = doi.strip()
+    doi = doi.replace("https://doi.org/", "")
+    doi = doi.replace("http://doi.org/", "")
+    doi = doi.replace("doi:", "")
+    return doi
 
-def safe_url(summary):
-    url = get(summary, "url", "value")
-    if url:
-        return url
-
+def resolve_url(summary):
     ext_ids = get(summary, "external-ids", "external-id", default=[])
+
+    doi = None
+
     if isinstance(ext_ids, list):
         for ext in ext_ids:
-            if ext.get("external-id-type") == "doi":
+            if (ext.get("external-id-type") or "").lower() == "doi":
                 doi = ext.get("external-id-value")
                 if doi:
-                    return f"https://doi.org/{doi}"
+                    # return immediately: DOI is absolute priority
+                    return f"https://doi.org/{normalize_doi(doi)}"
 
+    # fallback 1: ORCID/PURE canonical URL
+    url = get(summary, "url", "value")
+    if url:
+        return url.strip()
+
+    # fallback 2: nothing else reliable
     return ""
 
 
@@ -55,6 +67,8 @@ def safe_type(summary):
 
 def safe_journal_title(summary):
     return get(summary, "journal-title", "value") or ""
+
+
 
 # --- fetching ---
 
@@ -77,7 +91,7 @@ def fetch_publications():
         pubs.append({
             "title": safe_title(s),
             "year": safe_year(s),
-            "url": safe_url(s),
+            "url": resolve_url(s),
             "type": safe_type(s),
             "journal_title": safe_journal_title(s),
         })
