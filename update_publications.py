@@ -151,8 +151,8 @@ def build_html(publications):
 <div class="row">
     <div class="col-md-10 mx-auto">
         <h6> {use_emoji}{title_html}</h6>
-        <p class="description opacity-8">
-            {year}. {link}
+        <p class="description opacity-8" style="margin-left: 40px;">
+        {year}. {link}
         </p>
     </div>
 </div>
