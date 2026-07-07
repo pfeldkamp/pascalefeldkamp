@@ -1,63 +1,41 @@
 body {
-    color: black;
     margin: 5%;
-    margin-top: 5%;
-    width: 90%;
-    font-family: 'Times New Roman', Times, serif;
-    font-size: medium;
 }
 
 #content h2 {
     margin-bottom: 10px; /* adjusting margin after h2 */
 }
 
-/* Links */
-a {
-    color: #0366d6;
-    text-decoration: none;
-}
-
-a:visited {
-    color: #0366d6;
-}
-
-a:hover {
-    color: #0366d6;
-    text-decoration: underline;
-}
-
-a.black-link {
-    color: black;
-    text-decoration: none; /* removes the underline by default */
-}
-
-/* Images */
-img.rounded-corners {
-    border-radius: 50%;
-}
-
 /* Custom containers */
 #container {
-    width: 75%;
-    padding: 5%;
-    margin: 5%;
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 #sidebar {
-    float: right;
     width: 25%;
-    background: #f2d7e8;
     padding: 5%;
-    margin: 5%;
-    clear: right;
-    border: 2px solid #00ff00;
+    background: #f5f6f4;
+    border: 3px solid #00ff00;
+    box-sizing: border-box;
 }
 
 #content {
-    overflow: hidden;
-    margin: 5%;
-    margin-left: 10%;
+    width: 70%;
     padding: 5%;
+    box-sizing: border-box;
+}
+
+#content_main {
+    width: 100%;
+    display: block;
+}
+
+#content_breaker {
+    margin: 20px 0 10px 0;
 }
 
 .curve {
@@ -72,30 +50,15 @@ img.rounded-corners {
 }
 
 /* EXTRA STUFF FOR SMALL SCREENS */
-@media only screen and (max-width: 768px) {
-    /* Your mobile-specific styles here */
-    body {
-        margin: 2%;
-        font-size: smaller;
-        /* Adjust other properties */
-    }
-
+@media (max-width: 768px) {
     #container {
-        width: 90%;
-        padding: 2%;
-        margin: 2%;
+        flex-direction: column;
     }
 
-    #sidebar {
-        width: 90%;
-        padding: 2%;
-        margin: 2%;
-        /* Adjust other properties */
-    }
-
+    #sidebar,
     #content {
-        margin-left: 0;
-        /* Adjust other properties */
+        width: 100%;
+        margin: 0;
     }
 }
 
@@ -135,4 +98,29 @@ button:hover::after {
 button:active::after {
     content: "!!!";
     visibility: visible;
+}
+
+/* Links */
+a {
+    color: #0366d6;
+    text-decoration: none;
+}
+
+a:visited {
+    color: #0366d6;
+}
+
+a:hover {
+    color: #0366d6;
+    text-decoration: underline;
+}
+
+a.black-link {
+    color: black;
+    text-decoration: none; /* removes the underline by default */
+}
+
+/* Images */
+img.rounded-corners {
+    border-radius: 50%;
 }
