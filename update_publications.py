@@ -68,7 +68,6 @@ def safe_journal_title(summary):
     return get(summary, "journal-title", "value") or ""
 
 
-
 # --- fetching ---
 
 def fetch_publications():
@@ -130,7 +129,7 @@ def build_html(publications):
                 use_emoji = "🗞️ "
             elif pub["type"].lower() == "book chapter":
                 use_emoji = "📖 "
-                if pub["journal_title"].lower() == "anthology of computers and the humanities":
+                if pub["journal_title"].lower() == "anthology of computers and the humanities" or pub["journal_title"].lower() == "ceur workshop proceedings":
                     pub["type"] = "Conference Paper"
                     use_emoji = "📄 "
             elif pub["type"].lower() == "book":
