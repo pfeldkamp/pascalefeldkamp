@@ -9,3 +9,8 @@ document.querySelectorAll(".copy-btn").forEach(button => {
         }, 1500);
     });
 });
+
+document.querySelectorAll('a[href^="http"]').forEach(link => {
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+});
