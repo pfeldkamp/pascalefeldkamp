@@ -107,11 +107,11 @@ a {
 }
 
 a:visited {
-    color: #ff00ff;
+    color: #0366d6;
 }
 
 a:hover {
-    color: #0366d6;
+    color: #ff00ff;
     text-decoration: underline;
 }
 
